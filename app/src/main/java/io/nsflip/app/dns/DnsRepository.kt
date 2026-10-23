@@ -14,6 +14,11 @@ data class DnsState(
     val activeHost: String? get() = if (isActiveHost) specifier else null
 
     companion object {
+        // Settings.Global column names are public constants, but the SDK's
+        // Settings.Global fields for them are @hide — use the literal column names.
+        const val KEY_PRIVATE_DNS_MODE = "private_dns_mode"
+        const val KEY_PRIVATE_DNS_SPECIFIER = "private_dns_specifier"
+
         const val MODE_OFF = "off"
         const val MODE_AUTO = "auto"
         const val MODE_HOSTNAME = "hostname"
@@ -29,26 +34,25 @@ object DnsRepository {
     )
 
     private fun readMode(context: Context): String =
-        context.contentResolver.let {
-            Settings.Global.getString(it, Settings.Global.PRIVATE_DNS_MODE)
-        } ?: DnsState.MODE_AUTO // devices default to auto when unset (added in 28)
+        Settings.Global.getString(context.contentResolver, DnsState.KEY_PRIVATE_DNS_MODE)
+            ?: DnsState.MODE_AUTO // devices default to auto when unset
 
     private fun readSpecifier(context: Context): String? =
-        Settings.Global.getString(context.contentResolver, Settings.Global.PRIVATE_DNS_SPECIFIER)
+        Settings.Global.getString(context.contentResolver, DnsState.KEY_PRIVATE_DNS_SPECIFIER)
 
     private fun write(context: Context, mode: String?, specifier: String?): Boolean =
         runCatching {
             if (mode != null) {
                 Settings.Global.putString(
                     context.contentResolver,
-                    Settings.Global.PRIVATE_DNS_MODE,
+                    DnsState.KEY_PRIVATE_DNS_MODE,
                     mode
                 )
             }
             if (specifier != null || mode == DnsState.MODE_HOSTNAME) {
                 Settings.Global.putString(
                     context.contentResolver,
-                    Settings.Global.PRIVATE_DNS_SPECIFIER,
+                    DnsState.KEY_PRIVATE_DNS_SPECIFIER,
                     specifier
                 )
             }

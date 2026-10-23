@@ -31,7 +31,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -264,7 +264,7 @@ fun AddEntryDialog(
                     label = { Text("Name") },
                     singleLine = true,
                     isError = nameError != null,
-                    supportingText = nameError?.let { { Text(it) } },
+                    supportingText = { nameError?.let { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 OutlinedTextField(
@@ -274,7 +274,7 @@ fun AddEntryDialog(
                     placeholder = { Text("e.g. dns.adguard-dns.com") },
                     singleLine = true,
                     isError = hostError != null,
-                    supportingText = hostError?.let { { Text(it) } },
+                    supportingText = { hostError?.let { Text(it) } },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }

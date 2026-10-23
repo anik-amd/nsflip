@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Owns the Shizuku bootstrap: binder state, permission prompt and the one-tap
@@ -76,16 +77,15 @@ object GrantManager {
                 .version(1)
                 .daemon(false)
 
-            @Volatile
-            var svc: IShellService? = null
+            val svcRef = AtomicReference<IShellService?>(null)
 
             val conn = object : ServiceConnection {
                 override fun onServiceConnected(name: ComponentName, binder: IBinder) {
-                    svc = IShellService.Stub.asInterface(binder)
+                    svcRef.set(IShellService.Stub.asInterface(binder))
                 }
 
                 override fun onServiceDisconnected(name: ComponentName) {
-                    svc = null
+                    svcRef.set(null)
                 }
             }
 
@@ -93,7 +93,7 @@ object GrantManager {
                 Shizuku.bindUserService(args, conn)
                 val deadline = System.currentTimeMillis() + 15_000
                 while (System.currentTimeMillis() < deadline) {
-                    val s = svc
+                    val s = svcRef.get()
                     if (s != null) {
                         val out = s.pmGrant(context.packageName, PERMISSION)
                         Shizuku.unbindUserService(args, null, false)
