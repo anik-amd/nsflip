@@ -119,9 +119,10 @@ private fun AppBody(refreshTick: State<Int>) {
     }
 
     val activeHost = dnsState.activeHost
+    val lastHost = lastUsedHost
     val providerName = when {
         activeHost != null -> displayName(activeHost, custom)
-        lastUsedHost != null -> displayName(lastUsedHost, custom)
+        lastHost != null -> displayName(lastHost, custom)
         else -> "No provider selected"
     }
 
@@ -181,7 +182,7 @@ private fun AppBody(refreshTick: State<Int>) {
             providerName = providerName,
             onToggle = { on ->
                 if (on) {
-                    val host = activeHost ?: lastUsedHost
+                    val host = activeHost ?: lastHost
                     if (host != null) {
                         connect(DnsEntry(displayName(host, custom), host))
                     } else {
