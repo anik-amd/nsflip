@@ -36,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.nsflip.app.data.CuratedDns
 import io.nsflip.app.data.DnsEntry
 import io.nsflip.app.dns.DnsState
 
