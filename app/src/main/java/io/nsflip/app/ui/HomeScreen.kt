@@ -85,7 +85,7 @@ fun HomeScreen(
                 SectionHeader("Curated providers", "tap to connect")
             }
 
-            CuratedDns.items.forEach { provider ->
+            CuratedDns.entries.forEach { provider ->
                 items(provider, key = { it.hostname }) { entry ->
                     DnsCard(
                         name = entry.name,
