@@ -14,10 +14,10 @@ data class DnsEntry(
          * lowercase letters/digits/hyphens/dots only. No scheme, port, path or IP.
          */
         private val HOSTNAME_REGEX =
-            Regex("""^(?=.{1,253}\$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*\$""")
+            Regex("""^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$""")
 
         private val IP_REGEX =
-            Regex("""^\d{1,3}(\.\d{1,3}){3}\$|^\[[0-9a-fA-F:]+]\$""")
+            Regex("""^\d{1,3}(\.\d{1,3}){3}$|^\[[0-9a-fA-F:]+]$""")
 
         fun validateHostname(raw: String): String? {
             val host = raw.trim().lowercase()
