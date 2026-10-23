@@ -1,15 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 package io.nsflip.app.data
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
 /** A Private DNS provider entry: friendly name + DoT hostname (never a raw IP). */
-@Parcelize
 data class DnsEntry(
     val name: String,
     val hostname: String,
-) : Parcelable {
+) {
     override fun toString(): String = "$name ($hostname)"
 
     companion object {
