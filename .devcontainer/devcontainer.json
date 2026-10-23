@@ -1,0 +1,20 @@
+{
+  "name": "NSFlip Android build (Codespace)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mathiasfrohlich.Kotlin",
+        "GitHub.vscode-github-actions"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "ANDROID_HOME": "/opt/android-sdk"
+  }
+}

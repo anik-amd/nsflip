@@ -1,0 +1,7 @@
+* text=auto
+*.kt text
+*.kts text
+*.xml text
+*.yml text eol=lf
+*.md text eol=lf
+gradlew text eol=lf

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NSFlip</string>
+    <string name="tile_label">DNS</string>
+    <string name="status_off">Private DNS is off</string>
+    <string name="status_auto">Private DNS: automatic</string>
+    <string name="status_auto_short">Auto</string>
+    <string name="connected_to">Connected to %1$s</string>
+    <string name="tile_off">Off</string>
+    <string name="tile_not_set_up">Not set up</string>
+    <string name="setup_title">One-time setup</string>
+    <string name="hostname_hint">hostname only, e.g. dns.adguard-dns.com</string>
+</resources>
