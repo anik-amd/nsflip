@@ -5,6 +5,8 @@ package io.nsflip.app.data
 data class DnsEntry(
     val name: String,
     val hostname: String,
+    /** One short line about what the provider offers (curated entries only). */
+    val offer: String? = null,
 ) {
     override fun toString(): String = "$name ($hostname)"
 

@@ -46,6 +46,15 @@ object EntriesRepository {
         }
     }
 
+    suspend fun updateCustom(context: Context, hostname: String, newName: String) {
+        context.dataStore.edit { prefs ->
+            val list = decode(prefs[KEY_CUSTOM]).map {
+                if (it.hostname == hostname) it.copy(name = newName) else it
+            }
+            prefs[KEY_CUSTOM] = encode(list)
+        }
+    }
+
     suspend fun deleteCustom(context: Context, hostname: String) {
         context.dataStore.edit { prefs ->
             val list = decode(prefs[KEY_CUSTOM]).filterNot { it.hostname == hostname }
